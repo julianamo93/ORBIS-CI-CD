@@ -34,7 +34,7 @@ stages:
                 az appservice plan create -g $(resourceGroup) -n $(service-plan) --is-linux
       
                 # Criar um Serviço de Aplicativo com JAVA 17 SE como runtime
-                az webapp create -g $(resourceGroup) -p $(service-plan) -n $(app-name) --runtime "$(runtime)"
+                az webapp create -g $(resourceGroup) -p $(service-plan) -n $(appName) --runtime "$(runtime)"
               visibleAzLogin: false
   - stage: BuildApp
     variables:
