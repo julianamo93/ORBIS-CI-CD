@@ -11,10 +11,10 @@ variables:
   location: eastus
   resourceGroup: rg-orbis
   service-plan: planOrbis
-  app-name: orbis-$(rm)
+  appName: orbis-$(rm)
   runtime: JAVA:17-java17
   sku: F1
-  nome-artefato: orbis
+  nome_artefato: orbis
 
 stages:
   - stage: criarInfra
@@ -77,12 +77,16 @@ stages:
           inputs:
             buildType: 'current'
             downloadType: 'specific'
+            artifactName: $(nome_artefato)
             downloadPath: '$(System.DefaultWorkingDirectory)'
+        
+        - script: ls -R $(System.DefaultWorkingDirectory)/$(nome_artefato)
+          displayName: 'Listar arquivos do artefato baixado'
 
         - task: AzureRmWebAppDeployment@4
           displayName: 'Deploy Orbis'
           inputs:
             azureSubscription: 'MyAzureSubscription'
-            appType: 'webApp'
-            WebAppName: $(app-name)
-            packageForLinux: '$(System.DefaultWorkingDirectory)/$(nome-artefato)/orbis-0.0.1.jar'
+            appType: 'webAppLinux'
+            WebAppName: $(appName)
+            packageForLinux: '$(System.DefaultWorkingDirectory)/$(nome_artefato)/orbis-0.0.1.jar'
