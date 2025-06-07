@@ -1,55 +1,51 @@
 package com.example.orbis_gs.controller;
 
+import com.example.orbis_gs.OrbisGsApplication;
 import com.example.orbis_gs.dto.UsuarioDTO;
 import com.example.orbis_gs.producer.UsuarioProducer;
 import com.example.orbis_gs.service.UsuarioService;
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
-import org.testcontainers.containers.RabbitMQContainer;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 
-@SpringBootTest
+@SpringBootTest(classes = {OrbisGsApplication.class, UsuarioServiceIntegrationTest.TestConfig.class})
 @ActiveProfiles("test")
-class UsuarioServiceIntegrationTest {
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+public class UsuarioServiceIntegrationTest {
 
-    @TestConfiguration
-    static class MockConfig {
-        @Bean
-        public UsuarioProducer usuarioProducer() {
-            return mock(UsuarioProducer.class);
-        }
-    }
+    @Autowired
+    private UsuarioService service;
 
-    @Autowired private UsuarioService service;
-
-    static RabbitMQContainer rabbit = new RabbitMQContainer("rabbitmq:3-management")
-            .withExposedPorts(5672, 15672);
-
-    @BeforeAll
-    static void startRabbit() {
-        rabbit.start();
-        System.setProperty("spring.rabbitmq.host", rabbit.getHost());
-        System.setProperty("spring.rabbitmq.port", rabbit.getAmqpPort().toString());
-        System.setProperty("spring.rabbitmq.username", rabbit.getAdminUsername());
-        System.setProperty("spring.rabbitmq.password", rabbit.getAdminPassword());
-    }
+    @Autowired
+    private UsuarioProducer usuarioProducer; // mockado
 
     @Test
-    void createUsuario_sendsToRabbit() throws InterruptedException {
+    void createUsuario_deveChamarProducerComDadosCorretos() {
         UsuarioDTO dto = new UsuarioDTO();
         dto.setEmail("teste@example.com");
-        dto.setNome("Int");
+        dto.setNome("Integration");
         dto.setSobrenome("Test");
-        dto.setSenha("pass");
+        dto.setSenha("123456");
         dto.setCep("87654321");
 
         service.createUsuario(dto);
 
-        assertTrue(true);
+        Mockito.verify(usuarioProducer, Mockito.times(1))
+                .enviarLogCadastro(Mockito.any(UsuarioDTO.class));
+    }
+
+    @TestConfiguration
+    static class TestConfig {
+
+        @Bean
+        public UsuarioProducer usuarioProducer() {
+            return Mockito.mock(UsuarioProducer.class);
+        }
     }
 }

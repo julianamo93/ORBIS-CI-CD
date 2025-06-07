@@ -13,7 +13,6 @@ import java.util.Optional;
 @DataJpaTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-
 public class UsuarioRepositoryTest {
 
     @Autowired

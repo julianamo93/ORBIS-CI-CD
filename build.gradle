@@ -18,40 +18,42 @@ repositories {
 }
 
 dependencies {
+	// Spring Boot starters
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	runtimeOnly 'com.oracle.database.jdbc:ojdbc11:23.3.0.23.09'
-
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	implementation 'org.springframework.boot:spring-boot-starter'
 
+	// Conexão com o SQL Server Azure
+	implementation 'com.microsoft.sqlserver:mssql-jdbc:9.4.1.jre11'
 
-	compileOnly 'org.projectlombok:lombok:1.18.30'
-	annotationProcessor 'org.projectlombok:lombok:1.18.30'
-	runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
-
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
-	implementation 'org.apache.commons:commons-lang3:3.12.0'
+	// RabbitMQ
 	implementation 'org.springframework.boot:spring-boot-starter-amqp'
 
+	// Apache Commons
+	implementation 'org.apache.commons:commons-lang3:3.12.0'
 
+	// Lombok
+	compileOnly 'org.projectlombok:lombok:1.18.30'
+	annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+	// Testes
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation 'org.mockito:mockito-core:5.12.0'
 	testImplementation 'org.testcontainers:junit-jupiter'
 	testImplementation 'org.testcontainers:rabbitmq'
-	testImplementation 'com.h2database:h2:2.1.214'
-
-
+	testImplementation 'com.h2database:h2:2.2.220'
 	testImplementation 'org.junit.platform:junit-platform-suite-api:1.10.0'
 	testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+}
 
-
-
-
+bootJar {
+	archiveBaseName = 'orbis'
+	archiveVersion = '0.0.1'
 }
 
 tasks.named('test') {
