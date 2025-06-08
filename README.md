@@ -93,5 +93,7 @@ orbis.broker.routingkey.usuario.created=usuario.created.routingkey
 
 ou acesse o link https://fly.rmq.cloudamqp.com/#/
 
+### Link YouTube
 
+[Global Solution Protech the Future - DevOps Tools & Cloud Computing - 2TDSZ-2025](https://youtu.be/YC0S45zxolo)
 
