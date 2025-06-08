@@ -12,7 +12,7 @@ variables:
   resourceGroup: rg-orbis
   servicePlan: planOrbis
   appName: orbis-$(rm)
-  runtime: JAVA:17-java17
+  runtime: JAVA|17-java17
   sku: F1
   nome_artefato: orbis
 
