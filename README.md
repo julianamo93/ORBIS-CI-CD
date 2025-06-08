@@ -24,7 +24,8 @@ A plataforma é composta por duas aplicações Spring Boot independentes: uma pr
 ---
 
 ## Arquitetura Pipeline YAML - Azure
-![image](https://github.com/user-attachments/assets/e3c6f76b-b9b9-4a1f-b555-a18fb5b9bb39)
+![image](https://github.com/user-attachments/assets/01c18aae-de47-491f-933a-a9a6642ba59f)
+
 
 ## Pipeline YAML CI/CD Azure
 
