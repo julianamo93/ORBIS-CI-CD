@@ -13,6 +13,9 @@ A ORBIS é uma aplicação desenvolvida com foco em situações de emergência, 
 
 A plataforma é composta por duas aplicações Spring Boot independentes: uma produtora e outra consumidora de mensagens, integradas via mensageria para garantir agilidade no fluxo de informações. Além disso, a API oferece suporte a bancos de dados Oracle (relacional) e MongoDB (não relacional), internacionalização e dashboard com Spring Boot Actuator.
 
+### Vídeo Pitch
+[Clique aqui](https://www.youtube.com/watch?v=A1gLzrINBCg&feature=youtu.be) para conhecer melhor sobre o Orbis.
+
 ---
 
 ## 👩‍💻 Desenvolvedores
