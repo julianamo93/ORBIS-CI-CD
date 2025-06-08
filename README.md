@@ -17,9 +17,39 @@ A plataforma é composta por duas aplicações Spring Boot independentes: uma pr
 
 ## 👩‍💻 Desenvolvedores
 
-- [Sabrina Couto](https://github.com/sabrinacouto) - Backend Developer & QA - RM552728
 - [Juliana Mo.](https://github.com/julianamo93) - Solutions Data Architect & Cloud - RM554113
+- [Sabrina Couto](https://github.com/sabrinacouto) - Backend Developer & QA - RM552728
 - [Kevin Nobre](https://github.com/KevinNobre) - FullStack Developer - RM552590
+
+---
+
+## Arquitetura Pipeline YAML - Azure
+![image](https://github.com/user-attachments/assets/e3c6f76b-b9b9-4a1f-b555-a18fb5b9bb39)
+
+## Pipeline YAML CI/CD Azure
+
+Pipeline YAML CI/CD criado com Azure DevOps; Foi criada uma infraestrutura, build e deploy da aplicação java com .JAR, 
+além da criação de um banco de dados Azure SQL Database para inserção e persistência de dados na nuvem, validados via Postman.
+
+### Etapas do Pipeline
+🔁 Trigger
+Acionada automaticamente em pushs para a branch main.
+
+🛠️ 1. Criar Infraestrutura (Stage: criarInfra)
+Azure CLI é utilizado para:
+- Criar o Resource Group.
+- Criar o App Service Plan Linux (F1 – gratuito).
+- Criar o Web App com runtime Java 17.
+
+🔨 2. Build da Aplicação (Stage: BuildApp)
+- Compila o projeto usando o Gradle.
+- Lista arquivos para verificação.
+Copia o .jar gerado e publica como artefato.
+
+🚀 3. Deploy da Aplicação (Stage: deployApp)
+- Faz o download do artefato publicado.
+- Lista os arquivos para conferência.
+Usa o AzureRmWebAppDeployment para fazer deploy no Azure Web App.
 
 ---
 
