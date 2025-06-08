@@ -10,7 +10,7 @@ variables:
   rm: rm554113
   location: eastus
   resourceGroup: rg-orbis
-  service-plan: planOrbis
+  servicePlan: planOrbis
   appName: orbis-$(rm)
   runtime: JAVA:17-java17
   sku: F1
@@ -28,14 +28,11 @@ stages:
               scriptType: 'bash'
               scriptLocation: 'inlineScript'
               inlineScript: |
-                # Criar o Grupo de Recursos az group create --location $(location) --name $(resourceGroup)
-      
-                # Criar o Plano de Serviço com SO igual a Linux
-                az appservice plan create -g $(resourceGroup) -n $(service-plan) --is-linux
-      
-                # Criar um Serviço de Aplicativo com JAVA 17 SE como runtime
-                az webapp create -g $(resourceGroup) -p $(service-plan) -n $(appName) --runtime "$(runtime)"
-              visibleAzLogin: false
+                az group create --location $(location) --name $(resourceGroup)
+                az appservice plan create -g $(resourceGroup) -n $(servicePlan) --is-linux --sku F1
+                az webapp create -g $(resourceGroup) -p $(servicePlan) -n $(appName) --runtime "$(runtime)"
+            displayName: 'Criar Resource Group, App Service Plan e WebApp'
+
   - stage: BuildApp
     variables:
       gradleWrapperFile: 'gradlew'
